@@ -1,0 +1,12 @@
+section,
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    border: 1px black solid;
+}
+
+textarea {
+    height: 10em;
+}

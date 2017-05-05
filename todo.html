@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="style.css">
+    <title>Document</title>
+</head>
+
+<body>
+    <form method="GET" action="">
+        <label for="name_list">Name of list :</label>
+        <input type="text" name="name_list" id="name_list" placeholder="exemple: List de course">
+        <label for="list">list :</label>
+        <textarea name="list" id="list"></textarea>
+        <input type='button' value='Submit' id='sub' />
+    </form>
+    <section id="list_todo">
+
+    </section>
+    <script>
+        let id = 0;
+
+        let makeRemove = function(val) {
+            return function() {
+                document.querySelector("#article" + val).remove();
+            };
+        };
+
+        document.querySelector("#sub").addEventListener("click", function() {
+            let name_list = document.querySelector("#name_list").value;
+            let list = document.querySelector("#list").value;
+            id = id + 1;
+            let article = document.createElement("article");
+            article.id = `article${id}`;
+            article.innerHTML +=
+                `<h1>${name_list}</h1>
+                 <pre>${list}</pre>
+                 <input type='button' value='delete this todo' id='button${id}'/>
+                 <hr/>`;
+            document.querySelector("#list_todo").appendChild(article);
+            document.querySelector(`#button${id}`).addEventListener("click", makeRemove(id));
+        });
+    </script>
+</body>
+
+</html>
