@@ -15,17 +15,94 @@
         <input type="text" name="name_list" id="name_list" placeholder="exemple: List de course">
         <label for="list">list :</label>
         <textarea name="list" id="list"></textarea>
-        <input type='button' value='Submit' id='sub' />
+        <input type='Submit' value='Submit' id='sub' />
     </form>
     <section id="list_todo">
 
     </section>
+    <table id="tableau_lists">
+
+    </table>
     <script>
+        let lists = new Array();
+
+        let add_to_list = function(title_arg, list_arg) {
+            let new_elem = {
+                title: title_arg,
+                list: list_arg,
+                modif: false
+            }
+            return new_elem;
+        }
+
+        let generate_html = function() {
+            document.querySelector('#list_todo').innerHTML = "";
+            for (let i = 0; i < lists.length; i++) {
+                if (lists[i].modif == false) {
+                    let article = document.createElement("article");
+                    article.innerHTML = `<h1>${lists[i].title}</h1><pre>${lists[i].list}</pre>`;
+                    let button = document.createElement("input");
+                    button.type = "button";
+                    button.value = "suppr";
+                    button.addEventListener("click", function() {
+                        lists.splice(i, 1);
+                        generate_html();
+                        generate_html_intab();
+                    });
+                    article.addEventListener("dblclick", function() {
+                        lists[i].modif = true;
+                        generate_html();
+                    });
+                    article.appendChild(button);
+                    document.querySelector('#list_todo').appendChild(article);
+                } else {
+                    let article = document.createElement("article");
+                    let title = document.createElement("input");
+                    title.value = lists[i].title;
+                    let list = document.createElement("textarea");
+                    list.value = lists[i].list;
+                    let button = document.createElement("input");
+                    button.type = "button";
+                    button.value = "confirm";
+                    article.appendChild(title);
+                    article.appendChild(list);
+                    article.appendChild(button);
+                    button.addEventListener("click", function() {
+                        lists[i].title = title.value;
+                        lists[i].list = list.value;
+                        lists[i].modif = false;
+                        generate_html();
+                        generate_html_intab();
+                    });
+                    document.querySelector('#list_todo').appendChild(article);
+                }
+            }
+        }
+        let generate_html_intab = function() {
+            document.querySelector('#tableau_lists').innerHTML = "";
+            for (let i = 0; i < lists.length; i++) {
+                let article = document.createElement("tr");
+                article.innerHTML = `<th>${lists[i].title}</th><td>${lists[i].list}</td>`;
+                document.querySelector('#tableau_lists').appendChild(article); 
+            }
+        }
+
+        document.querySelector('form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            let new_elem = add_to_list(document.querySelector('#name_list').value, document.querySelector('#list').value);
+            lists.push(new_elem);
+            console.log(lists);
+            generate_html();
+            generate_html_intab();
+        });
+    </script>
+
+    <!--<script>
         let id = 0;
 
         let makeRemove = function(val) {
             return function() {
-                document.querySelector("#article" + val).remove();
+                document.querySelector("#" + val).remove();
             };
         };
 
@@ -40,10 +117,42 @@
                  <pre>${list}</pre>
                  <input type='button' value='delete this todo' id='button${id}'/>
                  <hr/>`;
+            article.ondblclick = function() {
+                let values = {
+                    title: "",
+                    list: ""
+                }
+                values.title = article.children[0].textContent;
+                values.list = article.children[1].textContent;
+                let input = document.createElement('input');
+                input.type = "text";
+                input.value = values.title;
+                let list = document.createElement('textarea');
+                list.value = values.list;
+
+                let button = article.children[2];
+                button.value = "confirm";
+                button.onclick = function() {
+                    values.title = article.children[0].value;
+                    values.list = article.children[1].value;
+                    let input = document.createElement('h2');
+                    input.textContent = values.title;
+                    let list = document.createElement('pre');
+                    list.textContent = values.list;
+                    let button = article.children[2];
+                    button.value = "delete this todo";
+                    button.onclick = makeRemove(article.id);
+                    article.replaceChild(input, article.children[0]);
+                    article.replaceChild(list, article.children[1]);
+                }
+
+                article.replaceChild(input, article.children[0]);
+                article.replaceChild(list, article.children[1]);
+            };
             document.querySelector("#list_todo").appendChild(article);
-            document.querySelector(`#button${id}`).addEventListener("click", makeRemove(id));
+            document.querySelector(`#button${id}`).onclick = makeRemove("article" + id);
         });
-    </script>
+    </script>-->
 </body>
 
 </html>
