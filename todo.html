@@ -24,7 +24,10 @@
     </section>
     <h2>affichage 2:</h2>
     <table border="1" id="tableau_lists">
-
+        <tr>
+            <th>Titre lists</th>
+            <th>Elements</th>
+        </tr>
     </table>
     <script>
         let lists = new Array();
@@ -64,7 +67,7 @@
             for (let i = 0; i < lists.length; i++) {
                 if (lists[i].modif == false) {
                     let article = document.createElement("article");
-                    article.innerHTML = `<h1>${lists[i].title}</h1><pre>${lists[i].list}</pre>`;
+                    article.innerHTML = `<hr><h1>${lists[i].title}</h1><pre>${lists[i].list}</pre>`;
                     let button = document.createElement("input");
                     button.type = "button";
                     button.value = "suppr";

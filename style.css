@@ -9,12 +9,28 @@ form {
     background: black;
 }
 
+input {
+    height: 3em;
+    width: 75%;
+    margin: 1%;
+}
+
 textarea {
     height: 10em;
+    width: 75%;
 }
 
 table {
     width: 100%;
+}
+
+h1 {
+    text-align: center;
+}
+
+hr {
+    border: grey solid 1px;
+    width: 50vw;
 }
 
 td {
