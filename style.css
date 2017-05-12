@@ -26,6 +26,11 @@ table {
 
 h1 {
     text-align: center;
+    width: 100%;
+}
+
+article>pre {
+    width: 100%;
 }
 
 hr {
@@ -41,4 +46,5 @@ td {
 article {
     display: flex;
     flex-direction: column;
+    align-items: center;
 }
