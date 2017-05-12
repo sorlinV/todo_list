@@ -13,6 +13,15 @@ textarea {
     height: 10em;
 }
 
+table {
+    width: 100%;
+}
+
+td {
+    width: 50%;
+    text-align: center;
+}
+
 article {
     display: flex;
     flex-direction: column;
